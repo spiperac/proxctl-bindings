@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Strahinja Piperac <spiperac@denkei.org>"]
 license-file = "LICENSE"
 readme = "README.md"
+description = "Rust bindings for Proxmox API"
 repository = "https://github.com/spiperac/proxctl-bindings"
 keywords = ["proxmox", "api", "bindings"]
 edition = "2021"
