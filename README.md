@@ -1,6 +1,6 @@
-# ProxCtl TUI
+# ProxCtl Bindings
 
-[Simple Template]: https://github.com/ratatui/templates/tree/main/simple
+Rust Bindings for Proxmox HTTP API.
 
 ## License
 
