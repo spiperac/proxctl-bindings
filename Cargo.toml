@@ -2,7 +2,10 @@
 name = "proxctl-bindings"
 version = "0.1.0"
 authors = ["Strahinja Piperac <spiperac@denkei.org>"]
-license = "MIT"
+license-file = "LICENSE"
+readme = "README.md"
+repository = "https://github.com/spiperac/proxctl-bindings"
+keywords = ["proxmox", "api", "bindings"]
 edition = "2021"
 
 [dependencies]
