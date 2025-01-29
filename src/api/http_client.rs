@@ -1,3 +1,7 @@
+//! HTTP Client Implementation
+//!
+//! This is a HTTP client used to communicate with Proxmox API.
+
 use reqwest::{
     header::{HeaderMap, HeaderValue},
     Client as ReqwestClient,

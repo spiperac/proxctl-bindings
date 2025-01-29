@@ -1,6 +1,9 @@
-// Proxmox API Bindings Library
-// <spiperac@denkei.org>
-//
+//! Proxmox API Bindings
+//!
+//! This crate provides bindings for Proxmox HTTP API.
+//!
+
+// author <spiperac@denkei.org>
 
 pub mod api;
 pub mod resources;

@@ -1,10 +1,14 @@
+//! Node API Bindings
+//!
+//! This mod provides access to the Node API.
+//! https://pve.proxmox.com/pve-docs/api-viewer/index.html#/nodes/
+
 // api/node.rs
 use crate::resources::node::NodeResponse;
 
 use crate::ProxmoxApi;
 
 impl ProxmoxApi {
-    // Nodes
     pub async fn get_node_list(&self) -> Result<NodeResponse, reqwest::Error> {
         let response = self.client.get("/api2/json/nodes").await?;
         let data: NodeResponse = response.json().await?;
