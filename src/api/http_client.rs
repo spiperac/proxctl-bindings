@@ -7,8 +7,8 @@ use serde::Serialize;
 pub struct Client {
     client: ReqwestClient,
     base_url: String,
-    api_token: Option<String>,
-    csrf_token: Option<String>,
+    pub api_token: Option<String>,
+    pub csrf_token: Option<String>,
 }
 
 impl Client {
