@@ -44,7 +44,6 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
