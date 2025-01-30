@@ -5,15 +5,16 @@
 
 // api/node.rs
 use crate::resources::node::{
-    NetstatData, Node, NodeHostsResponse, NodeJournalResponse, NodeResponse,
+    NetstatData, Node, NodeConfigResponse, NodeDnsResponse, NodeHostsResponse, NodeJournalResponse,
+    NodeListResponse, NodeResponse,
 };
 
 use crate::ProxmoxApi;
 
 impl ProxmoxApi {
-    pub async fn get_nodes(&self) -> Result<NodeResponse<Node>, reqwest::Error> {
+    pub async fn get_nodes(&self) -> Result<NodeListResponse<Node>, reqwest::Error> {
         let response = self.client.get("/api2/json/nodes").await?;
-        let data: NodeResponse<Node> = response.json().await?;
+        let data: NodeListResponse<Node> = response.json().await?;
         Ok(data)
     }
 
@@ -29,16 +30,24 @@ impl ProxmoxApi {
         response.text().await
     }
 
-    pub async fn get_node_aplinfo(&self, node: &str) -> Result<String, reqwest::Error> {
+    pub async fn get_node_aplinfo(
+        &self,
+        node: &str,
+    ) -> Result<NodeResponse<NodeConfigResponse>, reqwest::Error> {
         let path = format!("/api2/json/nodes/{}/aplinfo", node);
         let response = self.client.get(&path).await?;
-        response.text().await
+        let data: NodeResponse<NodeConfigResponse> = response.json().await?;
+        Ok(data)
     }
 
-    pub async fn get_node_dns(&self, node: &str) -> Result<String, reqwest::Error> {
+    pub async fn get_node_dns(
+        &self,
+        node: &str,
+    ) -> Result<NodeResponse<NodeDnsResponse>, reqwest::Error> {
         let path = format!("/api2/json/nodes/{}/dns", node);
         let response = self.client.get(&path).await?;
-        response.text().await
+        let data: NodeResponse<NodeDnsResponse> = response.json().await?;
+        Ok(data)
     }
 
     pub async fn get_node_hosts(
@@ -63,10 +72,10 @@ impl ProxmoxApi {
     pub async fn get_node_netstat(
         &self,
         node: &str,
-    ) -> Result<NodeResponse<NetstatData>, reqwest::Error> {
+    ) -> Result<NodeListResponse<NetstatData>, reqwest::Error> {
         let path = format!("/api2/json/nodes/{}/netstat", node);
         let response = self.client.get(&path).await?;
-        let data: NodeResponse<NetstatData> = response.json().await?;
+        let data: NodeListResponse<NetstatData> = response.json().await?;
         Ok(data)
     }
 }

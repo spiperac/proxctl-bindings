@@ -3,6 +3,11 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NodeResponse<T> {
+    pub data: T,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct NodeListResponse<T> {
     pub data: Vec<T>, // List of nodes
 }
 
@@ -53,6 +58,31 @@ pub struct NodeStatus {
     pub cpu: f64,               // CPU usage percentage
     pub memory: u64,            // Total memory
     pub rootfs: Option<RootFs>, // Root filesystem usage
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct NodeDnsResponse {
+    pub dns1: Option<String>,
+    pub dns2: Option<String>,
+    pub dns3: Option<String>,
+    pub search: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct AcmeDomain {
+    pub domain: String,
+    pub alias: Option<String>,
+    pub plugin: Option<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct NodeConfigResponse {
+    pub acme: Option<String>,
+    pub description: Option<String>,
+    pub digest: Option<String>,
+    pub startall_onboot_delay: Option<u32>,
+    pub wakeonlan: Option<String>,
+    pub acmedomain0: Option<AcmeDomain>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
