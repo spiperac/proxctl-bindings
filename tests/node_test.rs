@@ -14,7 +14,7 @@ async fn test_get_node_list() {
     let proxmox_api = ProxmoxApi::new(server_url());
 
     // Call get_node_list
-    let response = proxmox_api.get_node_list().await.unwrap();
+    let response = proxmox_api.get_nodes().await.unwrap();
 
     // Verify the response
     assert_eq!(response.data.len(), 1);

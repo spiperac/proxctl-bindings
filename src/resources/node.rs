@@ -2,6 +2,11 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
+pub struct NodeResponse<T> {
+    pub data: Vec<T>, // List of nodes
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Node {
     pub node: String,
     pub status: String,
@@ -13,9 +18,34 @@ pub struct Node {
     pub uptime: Option<u64>,
 }
 
+#[derive(Serialize, Deserialize)]
+pub struct NetstatData {
+    pub dev: String,
+    #[serde(rename = "in")]
+    pub in_: String, // Using `in_` to avoid conflict with the Rust keyword `in`
+    pub out: String,
+    pub vmid: String,
+}
+
 #[derive(Debug, Serialize, Deserialize)]
-pub struct NodeResponse {
-    pub data: Vec<Node>, // List of nodes
+pub struct NodeJournalResponse {
+    pub data: Vec<String>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct JournalQueryParams {
+    pub node: String,
+    pub endcursor: Option<String>,
+    pub lastentries: Option<i32>,
+    pub since: Option<i32>,
+    pub startcursor: Option<String>,
+    pub until: Option<i32>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct NodeHostsResponse {
+    pub data: String,
+    pub digest: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

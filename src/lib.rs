@@ -3,8 +3,6 @@
 //! This crate provides bindings for Proxmox HTTP API.
 //!
 
-// author <spiperac@denkei.org>
-
 pub mod api;
 pub mod resources;
 
@@ -41,7 +39,6 @@ impl ProxmoxApi {
         }
     }
 
-    // Basic
     pub async fn authenticate(
         &mut self,
         username: &str,
@@ -61,7 +58,8 @@ impl ProxmoxApi {
 
         let auth_response: ProxmoxResponse<AuthResponse> = response.json().await?;
 
-        // Store the authentication token
+        // Store the authentication token in Cookie
+        // Can also be set in "Authorize" header.
         self.client.set_tokens(
             auth_response.data.ticket.clone(),
             Some(auth_response.data.csrf_prevention_token.clone()),
