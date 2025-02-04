@@ -8,6 +8,7 @@ use reqwest::{
 };
 use serde::Serialize;
 
+#[derive(Debug)]
 pub struct Client {
     client: ReqwestClient,
     base_url: String,

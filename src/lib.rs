@@ -28,6 +28,7 @@ pub struct VersionInfo {
     pub release: String,
 }
 
+#[derive(Debug)]
 pub struct ProxmoxApi {
     pub client: Client,
 }

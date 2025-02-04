@@ -52,8 +52,14 @@ impl ProxmoxApi {
             "node": node,
             "vmid": vmid,
         });
-        let response = self.client.post(&path, &data);
-        Ok(())
+        let response = self.client.post(&path, &data).await?;
+        if response.status().is_success() {
+            Ok(())
+        } else {
+            Err(reqwest::Error::from(
+                response.error_for_status().unwrap_err(),
+            ))
+        }
     }
 
     pub async fn qemu_reset(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
@@ -62,8 +68,14 @@ impl ProxmoxApi {
             "node": node,
             "vmid": vmid,
         });
-        let response = self.client.post(&path, &data);
-        Ok(())
+        let response = self.client.post(&path, &data).await?;
+        if response.status().is_success() {
+            Ok(())
+        } else {
+            Err(reqwest::Error::from(
+                response.error_for_status().unwrap_err(),
+            ))
+        }
     }
 
     pub async fn qemu_resume(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
@@ -72,8 +84,14 @@ impl ProxmoxApi {
             "node": node,
             "vmid": vmid,
         });
-        let response = self.client.post(&path, &data);
-        Ok(())
+        let response = self.client.post(&path, &data).await?;
+        if response.status().is_success() {
+            Ok(())
+        } else {
+            Err(reqwest::Error::from(
+                response.error_for_status().unwrap_err(),
+            ))
+        }
     }
 
     pub async fn qemu_shutdown(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
@@ -82,8 +100,14 @@ impl ProxmoxApi {
             "node": node,
             "vmid": vmid,
         });
-        let response = self.client.post(&path, &data);
-        Ok(())
+        let response = self.client.post(&path, &data).await?;
+        if response.status().is_success() {
+            Ok(())
+        } else {
+            Err(reqwest::Error::from(
+                response.error_for_status().unwrap_err(),
+            ))
+        }
     }
 
     pub async fn qemu_start(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
@@ -92,8 +116,14 @@ impl ProxmoxApi {
             "node": node,
             "vmid": vmid,
         });
-        let response = self.client.post(&path, &data);
-        Ok(())
+        let response = self.client.post(&path, &data).await?;
+        if response.status().is_success() {
+            Ok(())
+        } else {
+            Err(reqwest::Error::from(
+                response.error_for_status().unwrap_err(),
+            ))
+        }
     }
 
     pub async fn qemu_stop(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
@@ -102,8 +132,14 @@ impl ProxmoxApi {
             "node": node,
             "vmid": vmid,
         });
-        let response = self.client.post(&path, &data);
-        Ok(())
+        let response = self.client.post(&path, &data).await?;
+        if response.status().is_success() {
+            Ok(())
+        } else {
+            Err(reqwest::Error::from(
+                response.error_for_status().unwrap_err(),
+            ))
+        }
     }
 
     pub async fn qemu_suspend(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
@@ -112,8 +148,14 @@ impl ProxmoxApi {
             "node": node,
             "vmid": vmid,
         });
-        let response = self.client.post(&path, &data);
-        Ok(())
+        let response = self.client.post(&path, &data).await?;
+        if response.status().is_success() {
+            Ok(())
+        } else {
+            Err(reqwest::Error::from(
+                response.error_for_status().unwrap_err(),
+            ))
+        }
     }
 
     pub async fn qemu_clone(
@@ -129,6 +171,12 @@ impl ProxmoxApi {
             "newid": newid
         });
         let response = self.client.post(&path, &data).await?;
-        Ok(())
+        if response.status().is_success() {
+            Ok(())
+        } else {
+            Err(reqwest::Error::from(
+                response.error_for_status().unwrap_err(),
+            ))
+        }
     }
 }
