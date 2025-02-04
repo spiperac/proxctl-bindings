@@ -1,10 +1,11 @@
 // tests/qemu_test.rs
-use mockito::{mock, server_url};
 use proxctl_bindings::ProxmoxApi;
 
 #[tokio::test]
 async fn test_get_node_qemu() {
-    let _m = mock("GET", "/api2/json/nodes/node1/qemu")
+    let mut server = mockito::Server::new_async().await;
+    let _m = server
+        .mock("GET", "/api2/json/nodes/node1/qemu")
         .with_status(200)
         .with_body(
             r#"{
@@ -26,9 +27,10 @@ async fn test_get_node_qemu() {
             ]
         }"#,
         )
-        .create();
+        .create_async()
+        .await;
 
-    let proxmox_api = ProxmoxApi::new(server_url().to_string());
+    let proxmox_api = ProxmoxApi::new(server.url().to_string());
 
     let result = proxmox_api.get_node_qemu("node1").await;
 
@@ -43,7 +45,9 @@ async fn test_get_node_qemu() {
 
 #[tokio::test]
 async fn test_get_qemu_status_current() {
-    let _m = mock("GET", "/api2/json/nodes/node1/qemu/103/status/current")
+    let mut server = mockito::Server::new_async().await;
+    let _m = server
+        .mock("GET", "/api2/json/nodes/node1/qemu/103/status/current")
         .with_status(200)
         .with_body(
             r#"{
@@ -75,9 +79,10 @@ async fn test_get_qemu_status_current() {
             }
         }"#,
         )
-        .create();
+        .create_async()
+        .await;
 
-    let proxmox_api = ProxmoxApi::new(server_url().to_string());
+    let proxmox_api = ProxmoxApi::new(server.url().to_string());
     let result = proxmox_api.get_qemu_status("node1", 103).await;
 
     assert!(result.is_ok());
@@ -112,7 +117,9 @@ async fn test_get_qemu_status_current() {
 
 #[tokio::test]
 async fn test_get_qemu_config() {
-    let _m = mock("GET", "/api2/json/nodes/node1/qemu/100/config")
+    let mut server = mockito::Server::new_async().await;
+    let _m = server
+        .mock("GET", "/api2/json/nodes/node1/qemu/100/config")
         .with_status(200)
         .with_body(
             r#"{
@@ -154,9 +161,10 @@ async fn test_get_qemu_config() {
             }
         }"#,
         )
-        .create();
+        .create_async()
+        .await;
 
-    let proxmox_api = ProxmoxApi::new(server_url().to_string());
+    let proxmox_api = ProxmoxApi::new(server.url().to_string());
 
     let result = proxmox_api.get_qemu_config("node1", 100).await;
 
@@ -222,3 +230,6 @@ async fn test_get_qemu_config() {
     assert_eq!(config.lock.as_deref(), Some("backup"));
     assert_eq!(config.digest.as_deref(), Some("abc123"));
 }
+
+#[tokio::test]
+async fn qemu_status_reboot_test() {}

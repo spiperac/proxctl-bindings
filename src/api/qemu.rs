@@ -45,4 +45,90 @@ impl ProxmoxApi {
         let data: NodeQemuResponse<QemuConfig> = response.json().await?;
         Ok(data)
     }
+
+    pub async fn qemu_reboot(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
+        let path = format!("/api2/json/nodes/{}/qemu/{}/reboot", node, vmid);
+        let data = serde_json::json!({
+            "node": node,
+            "vmid": vmid,
+        });
+        let response = self.client.post(&path, &data);
+        Ok(())
+    }
+
+    pub async fn qemu_reset(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
+        let path = format!("/api2/json/nodes/{}/qemu/{}/reset", node, vmid);
+        let data = serde_json::json!({
+            "node": node,
+            "vmid": vmid,
+        });
+        let response = self.client.post(&path, &data);
+        Ok(())
+    }
+
+    pub async fn qemu_resume(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
+        let path = format!("/api2/json/nodes/{}/qemu/{}/resume", node, vmid);
+        let data = serde_json::json!({
+            "node": node,
+            "vmid": vmid,
+        });
+        let response = self.client.post(&path, &data);
+        Ok(())
+    }
+
+    pub async fn qemu_shutdown(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
+        let path = format!("/api2/json/nodes/{}/qemu/{}/shutdown", node, vmid);
+        let data = serde_json::json!({
+            "node": node,
+            "vmid": vmid,
+        });
+        let response = self.client.post(&path, &data);
+        Ok(())
+    }
+
+    pub async fn qemu_start(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
+        let path = format!("/api2/json/nodes/{}/qemu/{}/start", node, vmid);
+        let data = serde_json::json!({
+            "node": node,
+            "vmid": vmid,
+        });
+        let response = self.client.post(&path, &data);
+        Ok(())
+    }
+
+    pub async fn qemu_stop(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
+        let path = format!("/api2/json/nodes/{}/qemu/{}/stop", node, vmid);
+        let data = serde_json::json!({
+            "node": node,
+            "vmid": vmid,
+        });
+        let response = self.client.post(&path, &data);
+        Ok(())
+    }
+
+    pub async fn qemu_suspend(&self, node: &str, vmid: u32) -> Result<(), reqwest::Error> {
+        let path = format!("/api2/json/nodes/{}/qemu/{}/suspend", node, vmid);
+        let data = serde_json::json!({
+            "node": node,
+            "vmid": vmid,
+        });
+        let response = self.client.post(&path, &data);
+        Ok(())
+    }
+
+    pub async fn qemu_clone(
+        &self,
+        node: &str,
+        vmid: u32,
+        newid: u32,
+    ) -> Result<(), reqwest::Error> {
+        let path = format!("/api2/json/nodes/{node}/qemu/{vmid}/clone");
+        let data = serde_json::json!({
+            "node": node,
+            "vmid": vmid,
+            "newid": newid
+        });
+        let response = self.client.post(&path, &data).await?;
+        Ok(())
+    }
 }

@@ -55,7 +55,6 @@ impl ProxmoxApi {
             .client
             .post("/api2/json/access/ticket", &auth_data)
             .await?;
-
         let auth_response: ProxmoxResponse<AuthResponse> = response.json().await?;
 
         // Store the authentication token in Cookie
