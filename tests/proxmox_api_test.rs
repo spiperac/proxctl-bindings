@@ -5,12 +5,12 @@ use proxctl_bindings::ProxmoxApi;
 async fn test_authenticate() {
     // Set up the mock server to simulate Proxmox's API response
     // Request a new server from the pool
-    let mut server = mockito::Server::new();
+    let mut server = mockito::Server::new_async().await;
 
     let _m = server.mock("POST", "/api2/json/access/ticket")
         .with_status(200)
         .with_body(r#"{"data": {"ticket": "fake_ticket", "CSRFPreventionToken": "fake_csrf_token", "username": "test_user"}}"#)
-        .create();
+        .create_async().await;
 
     // Initialize ProxmoxApi with the mock server URL
     let mut proxmox_api = ProxmoxApi::new(server.url());
